@@ -1,13 +1,17 @@
 {
   "name": "sniply",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "",
   "license": "MIT",
   "keywords": [],
   "author": "",
   "scripts": {
     "build": "tsc",
-    "dev": "tsc --watch"
+    "dev": "tsc --watch",
+    "format": "prettier --write .",
+    "check-format": "prettier --check .",
+    "test": "vitest run",
+    "ci": "npm run build && npm run check-format && npm run test"
   },
   "repository": {
     "type": "git",
@@ -19,6 +23,12 @@
   ],
   "type": "module",
   "devDependencies": {
-    "typescript": "^5.9.2"
+    "@types/node": "^24.3.0",
+    "prettier": "^3.6.2",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
+  },
+  "dependencies": {
+    "node-fetch": "^3.3.2"
   }
 }
