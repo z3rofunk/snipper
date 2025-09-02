@@ -1,10 +1,10 @@
 {
   "name": "sniply",
   "version": "0.1.0",
-  "description": "",
+  "description": "Watch this space..",
   "license": "MIT",
   "keywords": [],
-  "author": "",
+  "author": "Zero Funk",
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
@@ -15,7 +15,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/z3rofunk/sniply.git"
+    "url": "https://github.com/z3rofunk/sniply.git"
+  },
+  "bugs": {
+    "url": "https://github.com/z3rofunk/sniply/issues"
   },
   "main": "dist/index.js",
   "files": [
