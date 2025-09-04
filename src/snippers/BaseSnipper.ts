@@ -1,14 +1,5 @@
 import fetch from 'node-fetch';
-
-export interface SnipResult {
-  snippedUrl: string;
-  originalUrl: string;
-  snipperId: string;
-}
-
-export interface SnipperConfig {
-  timeout?: number;
-}
+import { type SnipperConfig, type SnipResult } from '../types/snipper.js';
 
 export abstract class BaseSnipper {
   constructor(protected config: SnipperConfig = {}) {
