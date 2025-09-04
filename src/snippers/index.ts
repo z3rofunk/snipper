@@ -1,8 +1,11 @@
 import type { BaseSnipper } from './BaseSnipper.js';
 import { DagdSnipper } from './DagdSnipper.js';
 
-export type SnipperConstructor = new (...args: any[]) => BaseSnipper;
+export type SnipperId = 'dagd';
 
-export const SNIPPERS: Record<string, SnipperConstructor> = {
+type SnipperConstructor<T extends BaseSnipper = BaseSnipper> = new (
+  ...args: any[]
+) => T;
+export const SNIPPERS: Record<SnipperId, SnipperConstructor> = {
   dagd: DagdSnipper,
 };

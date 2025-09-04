@@ -1,6 +1,12 @@
 import fetch from 'node-fetch';
 
-abstract class BaseSnipper {
+export interface SnipResult {
+  snippedUrl: string;
+  originalUrl: string;
+  snipperId: string;
+}
+
+export abstract class BaseSnipper {
   protected get = async (baseUrl: string, params: Record<string, unknown>) => {
     const finalUrl = this.buildUrlWithParams(baseUrl, params);
     const response = await fetch(finalUrl);
@@ -26,7 +32,5 @@ abstract class BaseSnipper {
     return url.toString();
   };
 
-  abstract snip(url: string): Promise<string> | never;
+  abstract snip(url: string): Promise<SnipResult> | never;
 }
-
-export { BaseSnipper };
