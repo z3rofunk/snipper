@@ -6,12 +6,38 @@ export interface SnipResult {
   snipperId: string;
 }
 
-export abstract class BaseSnipper {
-  protected get = async (baseUrl: string, params: Record<string, unknown>) => {
-    const finalUrl = this.buildUrlWithParams(baseUrl, params);
-    const response = await fetch(finalUrl);
+export interface SnipperConfig {
+  timeout?: number;
+}
 
-    return response;
+export abstract class BaseSnipper {
+  constructor(protected config: SnipperConfig = {}) {
+    this.config = {
+      timeout: 2000,
+      ...config,
+    };
+  }
+
+  protected get = async (baseUrl: string, params: Record<string, unknown>) => {
+    const controller = new AbortController();
+
+    let timeoutId: NodeJS.Timeout | undefined;
+    if (this.config.timeout) {
+      timeoutId = setTimeout(() => controller.abort(), this.config.timeout);
+    }
+
+    try {
+      const finalUrl = this.buildUrlWithParams(baseUrl, params);
+      const response = await fetch(finalUrl, {
+        signal: controller.signal,
+      });
+
+      return response;
+    } finally {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    }
   };
 
   private buildUrlWithParams = (

@@ -4,9 +4,12 @@
 
 interface ErrorOptions {
   cause?: unknown;
-  code?: string;
-  type?: string;
   asserter?: AssertMyClaim;
+}
+
+interface SnipperErrorDetails {
+  snipperId: string;
+  originalUrl: string;
 }
 
 type AssertMyClaim = (
@@ -19,20 +22,21 @@ type AssertMyClaim = (
 // Error Classes
 // ---------------------------
 class SnipperError extends Error {
-  readonly code?: string;
-  readonly type?: string;
+  readonly details?: SnipperErrorDetails;
 
-  constructor(message: string, options: ErrorOptions = {}) {
+  constructor(
+    message: string,
+    options: ErrorOptions & { details?: SnipperErrorDetails },
+  ) {
     super(message, { cause: options.cause });
 
     this.name = this.constructor.name;
-    options.code && (this.code = options.code);
-    options.type && (this.type = options.type);
+    options.details && (this.details = options.details);
+
+    if (options.details) this.details = options.details;
 
     if (Error.captureStackTrace) {
       Error.captureStackTrace(this, options.asserter || this.constructor);
-    } else {
-      this.stack = new Error().stack;
     }
   }
 
@@ -40,8 +44,7 @@ class SnipperError extends Error {
     return {
       name: this.name,
       message: this.message,
-      code: this.code,
-      type: this.type,
+      details: this.details,
     };
   }
 }
