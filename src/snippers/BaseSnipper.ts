@@ -26,7 +26,7 @@ abstract class BaseSnipper {
     return url.toString();
   };
 
-  abstract snip(url: string): Promise<string>;
+  abstract snip(url: string): Promise<string> | never;
 }
 
 export { BaseSnipper };
