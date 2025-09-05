@@ -8,7 +8,7 @@ interface ErrorOptions {
 }
 
 interface SnipperErrorDetails {
-  snipperId: string;
+  snipperId?: string;
   originalUrl: string;
 }
 
@@ -32,8 +32,6 @@ class SnipperError extends Error {
 
     this.name = this.constructor.name;
     options.details && (this.details = options.details);
-
-    if (options.details) this.details = options.details;
 
     if (Error.captureStackTrace) {
       Error.captureStackTrace(this, options.asserter || this.constructor);

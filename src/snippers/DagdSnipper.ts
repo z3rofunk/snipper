@@ -1,5 +1,5 @@
 import { BaseSnipper } from './BaseSnipper.js';
-import { SnipperError, isSnipperError } from '../utils/SnipperError.js';
+import { SnipperError, isSnipperError } from '../error/SnipperError.js';
 import { type SnipResult, type SnipperId } from '../types/snipper.js';
 
 class DagdSnipper extends BaseSnipper {
@@ -10,6 +10,7 @@ class DagdSnipper extends BaseSnipper {
     const baseDetails = { originalUrl: url, snipperId: this.snipperId };
 
     try {
+      this.validateUrl(url);
       const response = await this.get(`${this.baseUrl}/shorten`, { url });
 
       if (!response.ok) {

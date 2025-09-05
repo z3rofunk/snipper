@@ -10,10 +10,13 @@
     "lib": ["esnext"],
     "types": ["node"],
 
-    // Build Output Options
-    "sourceMap": true,
+    // Build Options
     "declaration": true,
     "declarationMap": true,
+    "incremental": true,
+    "composite": false,
+    "tsBuildInfoFile": ".tsbuildinfo",
+    "esModuleInterop": true,
 
     // Core Type Safety
     "strict": true,
@@ -27,6 +30,7 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noPropertyAccessFromIndexSignature": true,
+    "forceConsistentCasingInFileNames": true,
 
     // Module System Rules
     "verbatimModuleSyntax": true,
