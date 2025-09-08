@@ -5,31 +5,75 @@ import { SnipperError } from '../error/SnipperError';
 import { SNIPPERS } from '../snippers';
 import { type SnipResult } from '../types';
 
-describe('Snipper Dagd shortening functionality', () => {
+describe('Dagd Snipper functionality', () => {
   let dagdSnipper: InstanceType<(typeof SNIPPERS)['dagd']>;
-  const expandedUrl: string = 'https://github.com/z3rofunk/snipper';
-  const snippedUrl: string = 'https://da.gd/eJqz0';
+
+  const TEST_URLS = {
+    original: 'https://github.com/z3rofunk/snipper',
+    shortened: 'https://da.gd/eJqz0',
+    invalid: 'not-a-valid-url',
+    invalidSnipped: 'https://da/eJqz0',
+    empty: '',
+  } as const;
 
   beforeEach(() => {
     dagdSnipper = Snipper.create('dagd');
   });
 
-  it('should successfully shorten a valid URL', async () => {
-    const snipped: SnipResult = await dagdSnipper.snip(expandedUrl);
+  describe('snip()', () => {
+    it('should shorten a valid URL successfully', async () => {
+      const result: SnipResult = await dagdSnipper.snip(TEST_URLS.original);
 
-    expect(snipped).toBeDefined();
-    expect(snipped.snippedUrl).not.toBe(expandedUrl);
-    expect(snipped.snippedUrl).toBe(snippedUrl);
-    expect(snipped.originalUrl).toBe(expandedUrl);
+      expect(result).toBeDefined();
+      expect(result.snippedUrl).toBe(TEST_URLS.shortened);
+      expect(result.originalUrl).toBe(TEST_URLS.original);
+      expect(result.snipperId).toBe('dagd');
+    });
+
+    it('should reject invalid URLs', async () => {
+      await expect(dagdSnipper.snip(TEST_URLS.invalid)).rejects.toThrow(
+        SnipperError,
+      );
+    });
+
+    it('should reject empty input', async () => {
+      await expect(dagdSnipper.snip(TEST_URLS.empty)).rejects.toThrow(
+        SnipperError,
+      );
+    });
   });
 
-  it('should handle invalid URLs gracefully', async () => {
-    const invalidUrl = 'not-a-valid-url';
+  describe('unSnip()', () => {
+    beforeEach(() => {
+      if (!dagdSnipper.unSnip) {
+        throw new Error('unSnip method is not implemented for dagdSnipper');
+      }
+    });
 
-    await expect(dagdSnipper.snip(invalidUrl)).rejects.toThrow(SnipperError);
-  });
+    it('should expand a shortened URL successfully', async () => {
+      const result: SnipResult = await dagdSnipper.unSnip!(TEST_URLS.shortened);
 
-  it('should handle empty input', async () => {
-    await expect(dagdSnipper.snip('')).rejects.toThrow(SnipperError);
+      expect(result).toBeDefined();
+      expect(result.originalUrl).toBe(TEST_URLS.original);
+      expect(result.snipperId).toBe('dagd');
+    });
+
+    it('should reject invalid URLs', async () => {
+      await expect(dagdSnipper.unSnip!(TEST_URLS.invalid)).rejects.toThrow(
+        SnipperError,
+      );
+    });
+
+    it('should reject empty input', async () => {
+      await expect(dagdSnipper.unSnip!(TEST_URLS.empty)).rejects.toThrow(
+        SnipperError,
+      );
+    });
+
+    it('should reject invalid snipped URLs', async () => {
+      await expect(
+        dagdSnipper.unSnip!(TEST_URLS.invalidSnipped),
+      ).rejects.toThrow(SnipperError);
+    });
   });
 });

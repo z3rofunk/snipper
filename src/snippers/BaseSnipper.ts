@@ -11,7 +11,7 @@ export abstract class BaseSnipper {
     };
   }
 
-  protected get = async (baseUrl: string, params: Record<string, unknown>) => {
+  protected get = async (baseUrl: string, params?: Record<string, unknown>) => {
     const controller = new AbortController();
 
     let timeoutId: NodeJS.Timeout | undefined;
@@ -52,6 +52,9 @@ export abstract class BaseSnipper {
   };
 
   protected validateUrl = (url: string) => {
+    if (!url || url.trim() === '') {
+      throw new SnipperError('URL cannot be empty', url);
+    }
     const urlRegex: RegExp =
       /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
 
@@ -66,4 +69,6 @@ export abstract class BaseSnipper {
   };
 
   abstract snip(url: string): Promise<SnipResult> | never;
+
+  abstract unSnip?(snippedUrl: string): Promise<SnipResult>;
 }
