@@ -59,9 +59,7 @@ export abstract class BaseSnipper {
     }
 
     if (!url.match(urlRegex)) {
-      throw new SnipperError('Invalid URL format', {
-        details: { originalUrl: url },
-      });
+      throw new SnipperError('Invalid URL format', url);
     }
     return url;
   };

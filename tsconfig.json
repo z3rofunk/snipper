@@ -1,46 +1,34 @@
 {
   "compilerOptions": {
-    // File Layout
-    "rootDir": "./src",
-    "outDir": "./dist",
-
-    // Environment Settings
-    "module": "nodenext",
+    "module": "Preserve",
     "target": "es2022",
-    "lib": ["esnext"],
     "types": ["node"],
 
-    // Build Options
-    "declaration": true,
-    "declarationMap": true,
     "incremental": true,
     "composite": false,
     "tsBuildInfoFile": ".tsbuildinfo",
     "esModuleInterop": true,
+    "noEmit": true,
 
-    // Core Type Safety
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+    "moduleResolution": "bundler",
+    "moduleDetection": "force",
+
+    "skipLibCheck": true,
+
     "strict": true,
     "noUncheckedIndexedAccess": true,
+    "noUncheckedSideEffectImports": true,
     "exactOptionalPropertyTypes": true,
-
-    // Code Quality Checks
     "noImplicitReturns": true,
     "noImplicitOverride": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noPropertyAccessFromIndexSignature": true,
-    "forceConsistentCasingInFileNames": true,
-
-    // Module System Rules
-    "verbatimModuleSyntax": true,
-    "isolatedModules": true,
-    "noUncheckedSideEffectImports": true,
-    "moduleDetection": "force",
-
-    // Performance
-    "skipLibCheck": true
+    "forceConsistentCasingInFileNames": true
   },
   "include": ["src/**/*"],
-  "exclude": ["**/dist/**", "**/node_modules/**", "**/examples/**"]
+  "exclude": ["**/dist/**", "**/node_modules/**"]
 }

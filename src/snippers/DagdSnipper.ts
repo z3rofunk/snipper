@@ -15,9 +15,7 @@ class DagdSnipper extends BaseSnipper {
 
       if (!response.ok) {
         const errorMessage = (await response.text()).trim();
-        throw new SnipperError(errorMessage || 'Failed to snip URL', {
-          details: baseDetails,
-        });
+        throw new SnipperError(errorMessage || 'Failed to snip URL', url);
       }
 
       const snippedUrl = (await response.text()).trim();
@@ -25,10 +23,7 @@ class DagdSnipper extends BaseSnipper {
     } catch (err) {
       if (isSnipperError(err)) throw err;
 
-      throw new SnipperError('Unexpected error during URL snipping', {
-        cause: err,
-        details: baseDetails,
-      });
+      throw new SnipperError('Unexpected error during URL snipping');
     }
   }
 }
