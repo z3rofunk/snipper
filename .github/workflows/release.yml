@@ -21,7 +21,7 @@ jobs:
     name: Publish to NPM & GitHub
     runs-on: ubuntu-latest
     environment:
-      name: sniply-release
+      name: snipper-release
       url: ${{ steps.semantic-release.outputs.release-url }}
     timeout-minutes: 20
 

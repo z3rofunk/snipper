@@ -12,8 +12,8 @@ body:
   - type: markdown
     attributes:
       value: |
-        - Ensure your issue isn't already [reported](https://github.com/z3rofunk/sniply/issues?utf8=%E2%9C%93&q=is%3Aissue).
-        - Ensure it isn't already fixed in the latest Sniply version.
+        - Ensure your issue isn't already [reported](https://github.com/z3rofunk/snipper/issues?utf8=%E2%9C%93&q=is%3Aissue).
+        - Ensure it isn't already fixed in the latest Snipper version.
   - type: textarea
     id: what-happened
     attributes:
@@ -61,9 +61,9 @@ body:
 
         # Enviroment
   - type: input
-    id: sniply-version
+    id: snipper-version
     attributes:
-      label: 'Sniply Version'
+      label: 'Snipper Version'
       placeholder: 'e.g. 0.2.0'
   - type: input
     id: node-version

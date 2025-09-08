@@ -54,8 +54,9 @@ export abstract class BaseSnipper {
   protected validateUrl = (url: string) => {
     const urlRegex: RegExp =
       /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
+
     if (!url.startsWith('http://') && !url.startsWith('https://')) {
-      return `http://${url}`;
+      url = `http://${url}`;
     }
 
     if (!url.match(urlRegex)) {

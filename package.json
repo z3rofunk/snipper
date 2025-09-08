@@ -1,5 +1,5 @@
 {
-  "name": "sniply",
+  "name": "snipper",
   "version": "0.1.0",
   "description": "Watch this space..",
   "license": "MIT",
@@ -16,10 +16,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/z3rofunk/sniply.git"
+    "url": "https://github.com/z3rofunk/snipper.git"
   },
   "bugs": {
-    "url": "https://github.com/z3rofunk/sniply/issues"
+    "url": "https://github.com/z3rofunk/snipper/issues"
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
