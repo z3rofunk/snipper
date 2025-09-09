@@ -27,7 +27,11 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noPropertyAccessFromIndexSignature": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+
+    "declaration": true,
+    "emitDeclarationOnly": false,
+    "removeComments": false
   },
   "include": ["src/**/*"],
   "exclude": ["**/dist/**", "**/node_modules/**"]

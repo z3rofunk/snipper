@@ -11,5 +11,11 @@ export default defineBuildConfig({
   outDir: 'dist',
   clean: true,
   failOnWarn: true,
-  entries: ['./src/index.ts', './src/types/index.ts'],
+  entries: [
+    './src/index.ts',
+    './src/types/index.ts',
+    './src/snippers/index.ts',
+    './src/snippers/BaseSnipper.ts',
+    './src/snippers/DagdSnipper.ts',
+  ],
 });
