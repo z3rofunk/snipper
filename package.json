@@ -1,5 +1,5 @@
 {
-  "name": "snipper",
+  "name": "snippers",
   "version": "0.1.0",
   "description": "Watch this space..",
   "license": "MIT",
@@ -14,12 +14,15 @@
     "test": "vitest run",
     "ci": "npm run build && npm run check-format && npm run test"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/z3rofunk/snipper.git"
+    "url": "git+https://github.com/z3rofunk/snippers.git"
   },
   "bugs": {
-    "url": "https://github.com/z3rofunk/snipper/issues"
+    "url": "https://github.com/z3rofunk/snippers/issues"
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",

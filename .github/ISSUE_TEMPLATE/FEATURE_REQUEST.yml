@@ -12,8 +12,8 @@ body:
   - type: markdown
     attributes:
       value: |
-        - Ensure your issue isn't already [reported](https://github.com/z3rofunk/snipper/issues?utf8=%E2%9C%93&q=is%3Aissue).
-        - Ensure it isn't already fixed in the latest Snipper version.
+        - Ensure your issue isn't already [reported](https://github.com/z3rofunk/snippers/issues?utf8=%E2%9C%93&q=is%3Aissue).
+        - Ensure it isn't already fixed in the latest Snippers version.
   - type: textarea
     id: description
     attributes:
@@ -60,9 +60,9 @@ body:
 
         # Enviroment
   - type: input
-    id: snipper-version
+    id: snippers-version
     attributes:
-      label: 'Snipper Version'
+      label: 'Snippers Version'
       placeholder: 'e.g. 0.2.0'
   - type: input
     id: node-version

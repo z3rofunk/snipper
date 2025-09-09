@@ -1,3 +1,3 @@
-# snipper
+# snippers
 
 Watch this space..
