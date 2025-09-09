@@ -1,0 +1,64 @@
+{
+  "name": "snipper",
+  "version": "0.1.0",
+  "description": "Watch this space..",
+  "license": "MIT",
+  "keywords": [],
+  "author": "Zero Funk",
+  "type": "module",
+  "scripts": {
+    "build": "unbuild --clean",
+    "dev": "tsc --watch",
+    "format": "prettier --write .",
+    "check-format": "prettier --check .",
+    "test": "vitest run",
+    "ci": "npm run build && npm run check-format && npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/z3rofunk/snipper.git"
+  },
+  "bugs": {
+    "url": "https://github.com/z3rofunk/snipper/issues"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./types": {
+      "import": {
+        "types": "./dist/types/index.d.ts",
+        "default": "./dist/types/index.mjs"
+      },
+      "require": {
+        "types": "./dist/types/index.d.cts",
+        "default": "./dist/types/index.cjs"
+      }
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "@types/node": "^24.3.0",
+    "prettier": "^3.6.2",
+    "semantic-release": "^24.2.7",
+    "typescript": "^5.9.2",
+    "unbuild": "^3.6.1",
+    "vitest": "^3.2.4"
+  },
+  "dependencies": {
+    "node-fetch": "^3.3.2"
+  }
+}

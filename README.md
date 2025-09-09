@@ -1,1 +1,3 @@
-# sniply
+# snipper
+
+Watch this space..
