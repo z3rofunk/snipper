@@ -1,0 +1,2 @@
+import 'node-fetch';
+export { B as BaseSnipper } from '../shared/snippers.BxBtaZqa.mjs';
