@@ -1,5 +1,5 @@
 import fetch from 'node-fetch';
-import { SnipperError } from '../error/SnipperError.js';
+import { SnipperError, isSnipperError } from '../error/SnipperError.js';
 
 import { type SnipperConfig, type SnipResult } from '../types/snipper.js';
 
@@ -46,6 +46,13 @@ export abstract class BaseSnipper {
       }
     }
   };
+
+  protected handleError(err: unknown, snipperId: string): never {
+    if (isSnipperError(err)) throw err;
+    throw new SnipperError(
+      `Unexpected error during URL (${snipperId}) snipping`,
+    );
+  }
 
   /**
    * Builds a URL with query parameters appended.

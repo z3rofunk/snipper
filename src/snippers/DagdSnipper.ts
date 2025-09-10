@@ -1,5 +1,5 @@
 import { BaseSnipper } from './BaseSnipper.js';
-import { SnipperError, isSnipperError } from '../error/SnipperError.js';
+import { SnipperError } from '../error/SnipperError.js';
 import { type SnipResult, type SnipperId } from '../types/snipper.js';
 
 class DagdSnipper extends BaseSnipper {
@@ -13,18 +13,28 @@ class DagdSnipper extends BaseSnipper {
    *
    * @override
    * @param {string} url - The URL to snip (shorten).
+   * @param {string} alias - Optional custom alias for the shortened URL.
    * @returns {Promise<SnipResult>} A Promise resolving to the SnipResult containing the snipped (shortened) URL.
    * @throws {SnipperError} If validation fails or the API request fails.
    *
    * @example
    * const dagdSnipper = Snipper.create('dagd');
-   * const result = await dagdSnipper.snip('https://example.com');
-   * console.log(result.snippedUrl); // e.g., 'https://da.gd/abc123'
+   *
+   * // Without alias
+   * const result1 = await dagdSnipper.snip('https://example.com');
+   * console.log(result1.snippedUrl); // e.g., 'https://da.gd/abc123'
+   *
+   * // With alias
+   * const result2 = await dagdSnipper.snip('https://example.com', 'myalias');
+   * console.log(result2.snippedUrl); // e.g., 'https://da.gd/myalias'
    */
-  async snip(url: string): Promise<SnipResult> {
+  async snip(url: string, alias?: string): Promise<SnipResult> {
     try {
       this.validateUrl(url);
-      const response = await this.get(`${this.baseUrl}/shorten`, { url });
+      const response = await this.get(`${this.baseUrl}/shorten`, {
+        url,
+        ...(!!alias && { shorturl: alias }),
+      });
       const responseText = (await response.text()).trim();
 
       if (!response.ok) {
@@ -37,8 +47,7 @@ class DagdSnipper extends BaseSnipper {
         snipperId: this.snipperId,
       };
     } catch (err) {
-      if (isSnipperError(err)) throw err;
-      throw new SnipperError('Unexpected error during URL snipping');
+      this.handleError(err, this.snipperId);
     }
   }
 
@@ -85,9 +94,8 @@ class DagdSnipper extends BaseSnipper {
         snippedUrl,
         snipperId: this.snipperId,
       };
-    } catch (err) {
-      if (isSnipperError(err)) throw err;
-      throw new SnipperError('Unexpected error during URL unsnipping');
+    } catch (err: unknown) {
+      this.handleError(err, this.snipperId);
     }
   }
 }

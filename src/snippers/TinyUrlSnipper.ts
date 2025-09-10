@@ -1,5 +1,5 @@
 import { BaseSnipper } from './BaseSnipper.js';
-import { SnipperError, isSnipperError } from '../error/SnipperError.js';
+import { SnipperError } from '../error/SnipperError.js';
 import { type SnipResult, type SnipperId } from '../types/snipper.js';
 
 class TinyUrlSnipper extends BaseSnipper {
@@ -17,15 +17,22 @@ class TinyUrlSnipper extends BaseSnipper {
    * @throws {SnipperError} If validation fails or the API request fails.
    *
    * @example
-   * const tinyUrlSnipper = Snipper.create('tinyurl');
-   * const result = await tinyUrlSnipper.snip('https://example.com');
-   * console.log(result.snippedUrl); // e.g., 'https://tinyurl.com/abc123'
+   * const tinyUrlSnipper =  Snipper.create('tinyurl');
+   *
+   * // Without alias
+   * const result1 = await tinyUrlSnipper.snip('https://example.com');
+   * console.log(result1.snippedUrl); // e.g., 'https://tinyurl.com/abc123'
+   *
+   * // With alias
+   * const result2 = await tinyUrlSnipper.snip('https://example.com', 'myalias');
+   * console.log(result2.snippedUrl); // e.g., https://tinyurl.com/myalias'
    */
-  async snip(url: string): Promise<SnipResult> {
+  async snip(url: string, alias?: string): Promise<SnipResult> {
     try {
       this.validateUrl(url);
       const response = await this.get(`${this.baseUrl}/api-create.php`, {
         url,
+        ...(!!alias && { alias }),
       });
       const responseText = (await response.text()).trim();
 
@@ -39,8 +46,7 @@ class TinyUrlSnipper extends BaseSnipper {
         snipperId: this.snipperId,
       };
     } catch (err) {
-      if (isSnipperError(err)) throw err;
-      throw new SnipperError('Unexpected error during URL snipping');
+      this.handleError(err, this.snipperId);
     }
   }
 }
