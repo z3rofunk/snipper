@@ -12,7 +12,7 @@ export interface TestUrls {
  * Base test URLs that are common across all snippers
  */
 const BASE_TEST_URLS = {
-  original: 'https://github.com/z3rofunk/snipper',
+  original: 'https://github.com/z3rofunk/snippers',
   invalid: 'not-a-valid-url',
   empty: '',
 } as const;
@@ -25,11 +25,12 @@ const PROVIDER_SPECIFIC_URLS: Record<
   Pick<TestUrls, 'shortened' | 'invalidSnipped'>
 > = {
   dagd: {
-    shortened: 'https://da.gd/eJqz0',
+    shortened: 'https://da.gd/vQGKT',
     invalidSnipped: 'https://da/eJqz0',
   },
+
   tinyurl: {
-    shortened: 'https://tinyurl.com/22of4hgp',
+    shortened: 'https://tinyurl.com/2ykkwsr7',
     invalidSnipped: 'https://turl.com/abc123',
   },
 };
