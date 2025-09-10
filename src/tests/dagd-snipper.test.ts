@@ -4,17 +4,11 @@ import { SnipperError } from '../error/SnipperError';
 
 import { SNIPPERS } from '../snippers';
 import { type SnipResult } from '../types';
+import { createTestUrls, type TestUrls } from './test-data';
 
 describe('Dagd Snipper functionality', () => {
   let dagdSnipper: InstanceType<(typeof SNIPPERS)['dagd']>;
-
-  const TEST_URLS = {
-    original: 'https://github.com/z3rofunk/snipper',
-    shortened: 'https://da.gd/eJqz0',
-    invalid: 'not-a-valid-url',
-    invalidSnipped: 'https://da/eJqz0',
-    empty: '',
-  } as const;
+  const TEST_URLS: TestUrls = createTestUrls('dagd');
 
   beforeEach(() => {
     dagdSnipper = Snipper.create('dagd');

@@ -55,7 +55,7 @@ class DagdSnipper extends BaseSnipper {
    * const result = await dagdSnipper.unSnip('https://da.gd/abc123');
    * console.log(result.originalUrl); // e.g., 'https://example.com'
    */
-  async unSnip(snippedUrl: string): Promise<SnipResult> {
+  override async unSnip(snippedUrl: string): Promise<SnipResult> {
     try {
       this.validateUrl(snippedUrl);
       const DAGD_URL_PREFIX = 'da.gd/';

@@ -20,7 +20,7 @@ export interface SnipperConfig {
 /**
  * Type alias for available snipper identifiers.
  */
-export type SnipperId = 'dagd';
+export type SnipperId = 'dagd' | 'tinyurl';
 
 /**
  * Constructor type for snipper classes.
