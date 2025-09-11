@@ -1,4 +1,4 @@
-import { BaseSnipper } from '../snippers/BaseSnipper.js';
+import { SNIPPERS } from '../snippers';
 
 export interface SnipResult {
   /** The snipped (shortened) URL. */
@@ -20,13 +20,4 @@ export interface SnipperConfig {
 /**
  * Type alias for available snipper identifiers.
  */
-export type SnipperId = 'dagd' | 'tinyurl';
-
-/**
- * Constructor type for snipper classes.
- *
- * @template T - The type of snipper this constructor creates.
- */
-export type SnipperConstructor<T extends BaseSnipper = BaseSnipper> = new (
-  config?: SnipperConfig,
-) => T;
+export type SnipperId = keyof typeof SNIPPERS;
